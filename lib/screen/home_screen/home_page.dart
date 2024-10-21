@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:custom_button_builder/custom_button_builder.dart';
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
@@ -8,36 +6,41 @@ import 'package:provider/provider.dart';
 import 'package:shivaportfolio/consts/data.dart';
 import 'package:shivaportfolio/providers/current_state.dart';
 import 'package:shivaportfolio/widgets/frosted.dart';
-
+import 'package:shivaportfolio/providers/current_state.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    CurrentState currentState =
+    Provider.of<CurrentState>(context, listen: false);
     Size size = MediaQuery.of(context).size;
-    CurrentState currentState = Provider.of<CurrentState>(context, listen: false);
     return Scaffold(
       body: Container(
         child: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    // end: Alignment(0, -0.4),
-                    colors: [Colors.blue, Colors.black45],
-                  )),
+            Selector<CurrentState, Gradient>(
+              selector: (context, provider) => provider.bgGradient,
+              builder: (context, _, __) {
+                return Container(
+                  decoration: BoxDecoration(gradient: currentState.bgGradient),
+                );
+              },
             ),
-            SvgPicture.asset(
-              "assets/images/cloudyBlue.svg",
-              // width: double.infinity,
-              height: size.height,
-              fit: BoxFit.cover,
-            ),
+            Selector<CurrentState, String>(
+                selector: (context, provider) => provider.selectedCloud,
+                builder: (context, _, __) {
+                  return SvgPicture.asset(
+                    currentState.selectedCloud,
+                    // width: double.infinity,
+                    height: size.height,
+                    fit: BoxFit.cover,
+                  );
+                }),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -45,85 +48,129 @@ class HomePage extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        FrostedContainer(
+                        const FrostedContainer(
                           height: 395,
-                          width: 245,
+                          width: 247.5,
+                          childG: Center(
+                            child: SizedBox(),
+                          ),
                         ),
-                        SizedBox(
-                          height: 20,
+                        const SizedBox(
+                          height: 10,
                         ),
                         FrostedContainer(
-                          height: 175,
-                          width: 245,
+                          width: 247.5,
+                          height: 175.5,
+                          childG: Container(),
                         ),
                       ],
                     ),
                     SizedBox(
-                      height:size.height-100,
-                      child: Consumer<CurrentState>(
-                        builder: (context,_,__) {
+                      height: size.height - 100,
+                      child: Selector<CurrentState, DeviceInfo>(
+                        selector: (context, provider) => provider.currentDevice,
+                        builder: (context, _, __) {
                           return DeviceFrame(
                             device: currentState.currentDevice,
-                            screen: Container(
-                              color: Colors.amberAccent,
-                              child: const Center(
-                                child: Text(
-                                  "Hello World",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                            screen: const Center(
+                              child: Text(
+                                "Hello World",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                           );
-                        }
+                        },
                       ),
                     ),
                     Column(
                       children: [
                         FrostedContainer(
                           height: 395,
-                          width: 245,
+                          width: 247.5,
+                          childG: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Wrap(
+                                children: [
+                                  ...List.generate(
+                                    colorPalette.length,
+                                        (index) => Consumer<CurrentState>(
+                                        builder: (context, _, __) {
+                                          return Container(
+                                            width: 52.5,
+                                            height: 52.5,
+                                            margin: const EdgeInsets.all(10),
+                                            child: CustomButton(
+                                              // margin: const EdgeInsets.all(10),
+                                              pressed: currentState.selectedColor ==
+                                                  index
+                                                  ? Pressed.pressed
+                                                  : Pressed.notPressed,
+                                              animate: true,
+                                              borderRadius: 100,
+                                              shadowColor: Colors.blueGrey[50],
+                                              isThreeD: true,
+                                              backgroundColor:
+                                              colorPalette[index].color,
+                                              width: 50,
+                                              height: 50,
+                                              onPressed: () {
+                                                currentState.changeGradient(index);
+                                              },
+                                            ),
+                                          );
+                                        }),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          height: 20,
+                        const SizedBox(
+                          height: 10,
                         ),
                         FrostedContainer(
-                          height: 175,
-                          width: 245,
+                          width: 247.5,
+                          height: 175.5,
+                          childG: Container(),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ...List.generate(
-                        devices.length,
-                        (index) => Selector <CurrentState,DeviceInfo>(
-                      selector: (context,provider) => provider.currentDevice,
-                      builder: (context,_,__) {
-                        return CustomButton(
-                          backgroundColor: Colors.black,
-                          onPressed: (){
-                            currentState.changeSelectedDevice(devices[index].device);
-                          },
-                          pressed: currentState.currentDevice==devices[index].device? Pressed.pressed : Pressed.notPressed,
-                           isThreeD: true,
-                          shadowColor: Colors.orangeAccent,
-                          borderRadius: 100,
-                          animate: true,
-                          width: 38,
-                          height: 38,
-                          child: Center(
-                              child:Icon(devices[index].data,color: Colors.white,)),
-                        );
-                      }
-                    )),
-                  ],
-                )
+                Selector<CurrentState, DeviceInfo>(
+                    selector: (context, p1) => p1.currentDevice,
+                    builder: (context, _, __) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ...List.generate(devices.length, (index) {
+                            return CustomButton(
+                              pressed: currentState.currentDevice ==
+                                  devices[index].device
+                                  ? Pressed.pressed
+                                  : Pressed.notPressed,
+                              animate: true,
+                              borderRadius: 100,
+                              isThreeD: true,
+                              backgroundColor: Colors.black,
+                              width: 37.5,
+                              height: 37.5,
+                              onPressed: () {
+                                currentState.changeSelectedDevice(
+                                    devices[index].device);
+                              },
+                              child: Center(
+                                  child: Icon(devices[index].data,
+                                      color: Colors.white, size: 25)),
+                            );
+                          })
+                        ],
+                      );
+                    })
               ],
             ),
           ],

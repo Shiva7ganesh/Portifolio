@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class FrostedContainer extends StatelessWidget {
   final double height;
   final double width;
+  final Widget childG;
   const FrostedContainer(
-      {super.key, required this.height, required this.width});
+      {super.key, required this.height, required this.width, required this.childG});
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class FrostedContainer extends StatelessWidget {
                       Colors.white.withOpacity(0.2)],
                   )
               ),
+              child: childG,
             )
           ],
         ),

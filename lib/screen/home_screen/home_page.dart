@@ -2,9 +2,12 @@ import 'package:custom_button_builder/custom_button_builder.dart';
 import 'package:device_frame/device_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shivaportfolio/consts/data.dart';
 import 'package:shivaportfolio/providers/current_state.dart';
+import 'package:shivaportfolio/screen/home_screen/phone_home_page.dart';
+import 'package:shivaportfolio/screen/home_screen/phone_screen_wrapper.dart';
 import 'package:shivaportfolio/widgets/frosted.dart';
 import 'package:shivaportfolio/providers/current_state.dart';
 class HomePage extends StatelessWidget {
@@ -67,17 +70,16 @@ class HomePage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: size.height - 100,
-                      child: Selector<CurrentState, DeviceInfo>(
-                        selector: (context, provider) => provider.currentDevice,
+                      child: Consumer<CurrentState>(
                         builder: (context, _, __) {
                           return DeviceFrame(
                             device: currentState.currentDevice,
-                            screen: const Center(
-                              child: Text(
-                                "Hello World",
-                                style: TextStyle(color: Colors.white),
+                            screen: Container(
+                              decoration: BoxDecoration(
+                                gradient: currentState.bgGradient,
                               ),
-                            ),
+                              child: ScreenWrapper(childG: currentState.currentScreen,),
+                            )
                           );
                         },
                       ),

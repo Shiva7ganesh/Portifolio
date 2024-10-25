@@ -25,9 +25,13 @@ class About extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
+                  backgroundImage: AssetImage("assets/images/shiva.jpg"),
                 ),
                 Text("Hi,I am Shiva Ganesh Reddy",
                 style: GoogleFonts.openSans(fontSize:20,fontWeight:FontWeight.bold),),
+                const SizedBox(
+                  height: 15,
+                ),
                 Text(intro,style: GoogleFonts.openSans(fontSize:15,fontWeight:FontWeight.w500),),
               ],
             ),

@@ -88,10 +88,12 @@ List<AppModel> apps=[
   AppModel(title:"Codechef", color: Colors.white,icon: Icons.ac_unit_outlined,link: codechef),
   AppModel(title:"Leetcode", color: Colors.white,icon: Icons.ac_unit_outlined,link: leetcode),
   AppModel(title:"Codeforces", color: Colors.white,icon: Icons.ac_unit_outlined,link: codeforces),
+  AppModel(title:"Resume", color: Colors.white,icon: Icons.ac_unit_outlined,link: resume),
   AppModel(title:"youtube", color: Colors.white,assetPath: "assets/icons/youtube.svg",link: youtube),
+  //AppModel(title: "email", color: Colors.white,icon: Icons.ac_unit_outlined,link: emai)
 ];
 
-const String intro = "a pre-final-year B.Tech student in Computer Science and Engineering at CMR Institute of Technology, with a CGPA of 8.81. I am deeply passionate about technology and innovation, consistently exploring new trends and applying them to solve real-world problems.\n\nAs the former Technical Lead for Google Developer Student Clubs (GDSC) at CMRIT, I organized multiple coding contests and hackathons, fostering collaboration and skill development within the student community. With a strong foundation in problem-solving (2-star coder on CodeChef), I enjoy tackling complex challenges.\n\nIn addition to my leadership experience, I’ve developed and published two apps on the Google Play Store. SnapShare Contacts simplifies contact sharing through QR codes, while TraceHub is a comprehensive lost and found management system";
+const String intro = "a pre-final-year B.Tech student in Computer Science and Engineering at CMR Institute of Technology, with a CGPA of 8.84. I am deeply passionate about technology and innovation, consistently exploring new trends and applying them to solve real-world problems.\n\nAs the former Technical Lead for Google Developer Student Clubs (GDSC) at CMRIT, I organized multiple coding contests and hackathons, fostering collaboration and skill development within the student community. With a strong foundation in problem-solving (2-star coder on CodeChef), I enjoy tackling complex challenges.\n\nIn addition to my leadership experience, I’ve developed and published two apps on the Google Play Store. SnapShare Contacts simplifies contact sharing through QR codes, while TraceHub is a comprehensive lost and found management system";
 const String linkedin="https://www.linkedin.com/in/shivaganeshlinga/";
 const String appstore="https://play.google.com/store/apps/developer?id=Ultranix";
 const String github="https://github.com/Shiva7ganesh";
@@ -100,7 +102,7 @@ const String leetcode="https://leetcode.com/22R01A0531/";
 const String codeforces="https://codeforces.com/profile/22r01a0531";
 const String youtube="https://www.youtube.com/@ShivaDecodes";
 const String email="shivaganeshlinga@outlook.com";
-const String resume="https://drive.google.com/file/d/13PBqxB2ty7YJ9rO3xbqW5yODi2e3GMo3/view?usp=sharing";
+const String resume="https://drive.google.com/file/d/12dEw8dVHwaeIe6KDqKU--ZXqOjUpDUSL/view?usp=sharing";
 
 List<SkillsModel> programLangs=[
   SkillsModel(skillName: "Python", colors: Colors.blue),
